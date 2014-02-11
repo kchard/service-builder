@@ -34,7 +34,7 @@ public class Hello implements Runnable {
         public void run() {
             System.out.println("Hello " + message + " at " + new Date());
         }
-    }
+}
 ```
 
 A service that executes Hello at each state transition:
@@ -99,7 +99,7 @@ public class HelloProducer implements Producer<String> {
         public String produce() {
             return "Hello, I produced this at " + new Date();
         }
-    }
+}
 
 public class HelloConsumer implements Consumer<String> {
 
@@ -107,7 +107,7 @@ public class HelloConsumer implements Consumer<String> {
         public void consume(String item) {
             System.out.println("At " + new Date() + "I consumed: " + item);
         }
-    }
+}
 ```
 
 A bounded work queue:
