@@ -9,7 +9,7 @@ The service-builder library provides a simple builder dsl for defining services.
 * Schedule Runnable once, at a fixed rate, or at a fixed delay
 * Define Producer/Consumer work queues
 * Schedule Producers/Consumers
-* Services are composible
+* Services are composable
 
 ## Examples
 
