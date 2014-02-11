@@ -1,11 +1,15 @@
 service-builder
 ===============
 
-The service-builder library provides a simple builder dsl for defining services. In this context, a service is
-defined as a process that progresses through several lifecycle phases. A service is defined, initialized, started,
-and finally stopped. The library handles all of the state transition logic. The user needs only to specify the code
-to execute during each phase. Additionally, the library provides a mechanism to schedule tasks and setup producer/consumer
-work queues.
+The service-builder library provides a simple builder dsl for defining services.
+
+## Features
+
+* Library handles state transition logic, user supplies Runnable to exexute logic
+* Schedule Runnable once, at a fixed rate, or at a fixed delay
+* Define Producer/Consumer work queues
+* Schedule Producers/Consumers
+* Services are composible
 
 ## Examples
 
