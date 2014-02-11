@@ -1,0 +1,61 @@
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+
+version = '0.5.0-SNAPSHOT'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+sourceSets {
+	
+	//Include Java/Groovy sources in groovy srcDirs to allow Java code to use Groovy classes
+	//Java srcDirs are compiled first by default and will not have access to uncompiled Groovy code
+	main {
+		java {
+			srcDirs = []
+		}
+		groovy {
+			srcDirs = ['src/main/groovy', 'src/main/java']
+		}
+	}
+	
+	test {
+		java {
+			srcDirs = []
+		}
+		groovy {
+			srcDirs = ['src/test/groovy', 'src/test/java']
+		}
+	}
+	
+	intTest {
+		compileClasspath = sourceSets.main.output + configurations.testCompile
+		runtimeClasspath = output + sourceSets.main.output + configurations.testRuntime
+	}
+}
+
+//Dependency config
+repositories {
+    maven { url "${mavenRepo}" }
+}
+
+dependencies {
+   
+	//Application compile dependencies
+	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.1.0'
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.2'
+		
+	//Application runtime dependencies
+	runtime group: 'ch.qos.logback', name: 'logback-core', version: '1.0.9'
+	runtime group: 'ch.qos.logback', name: 'logback-classic', version: '1.0.9'
+    
+	//Unit test dependencies
+	testCompile group: 'junit', name: 'junit', version: '4.8.2'
+}
+
+
+//Custom tasks
+task intTest(type: Test, dependsOn: classes) {
+	testClassesDir = sourceSets.intTest.output.classesDir
+	classpath = sourceSets.intTest.runtimeClasspath
+}
