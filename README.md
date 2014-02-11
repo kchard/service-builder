@@ -204,3 +204,32 @@ At Tue Feb 11 13:55:19 PST 2014 I consumed: Hello, I produced this at Tue Feb 11
 At Tue Feb 11 13:55:20 PST 2014 I consumed: Hello, I produced this at Tue Feb 11 13:55:11 PST 2014
 At Tue Feb 11 13:55:21 PST 2014 I consumed: Hello, I produced this at Tue Feb 11 13:55:11 PST 2014
 ```
+
+A composite service:
+```
+AbstractService child = new ServiceBuilder().onInit(new Hello("initialize child"))
+                                            .onStartup(new Hello("startup child"))
+                                            .onShutdown(new Hello("shutdown child"))
+                                            .build()
+
+Service parent = new ServiceBuilder().onInit(new Hello("initialize parent"))
+                                     .onStartup(new Hello("startup parent"))
+                                     .onShutdown(new Hello("shutdown parent"))
+                                     .withChild(child)
+                                     .build()
+                                     
+parent.initialize()
+parent.start()
+parent.shutdown()
+```
+
+Output:
+
+```
+Hello initialize parent at Tue Feb 11 14:07:28 PST 2014
+Hello initialize child at Tue Feb 11 14:07:28 PST 2014
+Hello startup parent at Tue Feb 11 14:07:28 PST 2014
+Hello startup child at Tue Feb 11 14:07:28 PST 2014
+Hello shutdown child at Tue Feb 11 14:07:28 PST 2014
+Hello shutdown parent at Tue Feb 11 14:07:28 PST 2014
+```
